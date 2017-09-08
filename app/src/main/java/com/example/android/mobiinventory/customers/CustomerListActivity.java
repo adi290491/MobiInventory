@@ -3,6 +3,7 @@ package com.example.android.mobiinventory.customers;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -40,8 +41,13 @@ public class CustomerListActivity extends AppCompatActivity implements CustomerI
         init();
 
         if (CustomerDataUtils.isCustomerDBEmpty(this)) {
-            Toast.makeText(this, "Fetching from network", Toast.LENGTH_SHORT).show();
-            new FetchCustomerTask().execute();
+            if(NetworkUtils.isNetworkAvailable(this)) {
+                Toast.makeText(this, "Fetching from network", Toast.LENGTH_SHORT).show();
+                new FetchCustomerTask().execute();
+            }else{
+                Snackbar snackbar = Snackbar.make(findViewById(R.id.activity_main), "No Connection", Snackbar.LENGTH_SHORT);
+                snackbar.show();
+            }
         } else {
             hideLoading();
             Toast.makeText(this, "Fetching from db", Toast.LENGTH_SHORT).show();
