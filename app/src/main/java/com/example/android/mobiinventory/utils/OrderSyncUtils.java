@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static com.example.android.mobiinventory.utils.MobiInventoryUtils.getCurrentLocationCoordinates;
 
 /**
  * Created by aditya.sawant on 08-09-2017.
@@ -33,7 +32,7 @@ public final class OrderSyncUtils {
         httpUrlConnection.setRequestMethod("GET");
         httpUrlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
         httpUrlConnection.setRequestProperty("Content-Language", "en-US");
-        double latlng[] = getCurrentLocationCoordinates(context);
+        double latlng[] = MobiInventoryPreferences.getLocationCoordinates(context);
         httpUrlConnection.setRequestProperty("lat", Double.toString(latlng[0]));
         httpUrlConnection.setRequestProperty("long", Double.toString(latlng[1]));
 
